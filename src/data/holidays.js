@@ -1,0 +1,548 @@
+const INDIAN_HOLIDAYS = [
+  // 2025 Holidays
+  {
+    id: 'holiday-ind-2025-01-14',
+    type: 'holiday',
+    name: 'Makar Sankranti / Pongal',
+    description: 'Harvest festival celebrated across India. Marks the suns transition into Capricorn.',
+    startDate: '2025-01-14T00:00',
+    endDate: '2025-01-14T23:59',
+    category: 'Festival',
+    status: 'Passed',
+    createdAt: '2025-01-01T00:00:00.000Z'
+  },
+  {
+    id: 'holiday-ind-2025-01-26',
+    type: 'holiday',
+    name: 'Republic Day',
+    description: 'National holiday celebrating the adoption of the Constitution of India.',
+    startDate: '2025-01-26T00:00',
+    endDate: '2025-01-26T23:59',
+    category: 'Public Holiday',
+    status: 'Passed',
+    createdAt: '2025-01-01T00:00:00.000Z'
+  },
+  {
+    id: 'holiday-ind-2025-03-14',
+    type: 'holiday',
+    name: 'Holi',
+    description: 'Festival of colors celebrating the arrival of spring and the triumph of good over evil.',
+    startDate: '2025-03-14T00:00',
+    endDate: '2025-03-14T23:59',
+    category: 'Festival',
+    status: 'Passed',
+    createdAt: '2025-01-01T00:00:00.000Z'
+  },
+  {
+    id: 'holiday-ind-2025-03-31',
+    type: 'holiday',
+    name: 'Eid-ul-Fitr',
+    description: 'Islamic festival marking the end of Ramadan fasting month.',
+    startDate: '2025-03-31T00:00',
+    endDate: '2025-03-31T23:59',
+    category: 'Public Holiday',
+    status: 'Passed',
+    createdAt: '2025-01-01T00:00:00.000Z'
+  },
+  {
+    id: 'holiday-ind-2025-04-06',
+    type: 'holiday',
+    name: 'Ram Navami',
+    description: 'Celebration of the birth of Lord Rama, an avatar of Vishnu.',
+    startDate: '2025-04-06T00:00',
+    endDate: '2025-04-06T23:59',
+    category: 'Festival',
+    status: 'Passed',
+    createdAt: '2025-01-01T00:00:00.000Z'
+  },
+  {
+    id: 'holiday-ind-2025-04-10',
+    type: 'holiday',
+    name: 'Mahavir Jayanti',
+    description: 'Birth anniversary of Lord Mahavira, the 24th Tirthankara of Jainism.',
+    startDate: '2025-04-10T00:00',
+    endDate: '2025-04-10T23:59',
+    category: 'Public Holiday',
+    status: 'Passed',
+    createdAt: '2025-01-01T00:00:00.000Z'
+  },
+  {
+    id: 'holiday-ind-2025-04-14',
+    type: 'holiday',
+    name: 'Ambedkar Jayanti',
+    description: 'Birth anniversary of Dr. B.R. Ambedkar, the architect of the Indian Constitution.',
+    startDate: '2025-04-14T00:00',
+    endDate: '2025-04-14T23:59',
+    category: 'National Holiday',
+    status: 'Passed',
+    createdAt: '2025-01-01T00:00:00.000Z'
+  },
+  {
+    id: 'holiday-ind-2025-04-18',
+    type: 'holiday',
+    name: 'Good Friday',
+    description: 'Christian observance commemorating the crucifixion of Jesus Christ.',
+    startDate: '2025-04-18T00:00',
+    endDate: '2025-04-18T23:59',
+    category: 'Public Holiday',
+    status: 'Passed',
+    createdAt: '2025-01-01T00:00:00.000Z'
+  },
+  {
+    id: 'holiday-ind-2025-05-01',
+    type: 'holiday',
+    name: 'May Day / Labour Day',
+    description: 'International Workers Day celebrating the labour movement.',
+    startDate: '2025-05-01T00:00',
+    endDate: '2025-05-01T23:59',
+    category: 'National Holiday',
+    status: 'Passed',
+    createdAt: '2025-01-01T00:00:00.000Z'
+  },
+  {
+    id: 'holiday-ind-2025-06-07',
+    type: 'holiday',
+    name: 'Eid-ul-Adha (Bakrid)',
+    description: 'Islamic festival of sacrifice commemorating Prophet Abrahams willingness to sacrifice his son.',
+    startDate: '2025-06-07T00:00',
+    endDate: '2025-06-07T23:59',
+    category: 'Public Holiday',
+    status: 'Passed',
+    createdAt: '2025-01-01T00:00:00.000Z'
+  },
+  {
+    id: 'holiday-ind-2025-06-27',
+    type: 'holiday',
+    name: 'Muharram',
+    description: 'Islamic New Year marking the hijra of Prophet Muhammad. Day of mourning for Shia Muslims.',
+    startDate: '2025-06-27T00:00',
+    endDate: '2025-06-27T23:59',
+    category: 'Public Holiday',
+    status: 'Passed',
+    createdAt: '2025-01-01T00:00:00.000Z'
+  },
+  {
+    id: 'holiday-ind-2025-08-15',
+    type: 'holiday',
+    name: 'Independence Day',
+    description: 'National holiday celebrating Indias independence from British rule in 1947.',
+    startDate: '2025-08-15T00:00',
+    endDate: '2025-08-15T23:59',
+    category: 'Public Holiday',
+    status: 'Passed',
+    createdAt: '2025-01-01T00:00:00.000Z'
+  },
+  {
+    id: 'holiday-ind-2025-08-16',
+    type: 'holiday',
+    name: 'Janmashtami',
+    description: 'Celebration of the birth of Lord Krishna, the eighth avatar of Vishnu.',
+    startDate: '2025-08-16T00:00',
+    endDate: '2025-08-16T23:59',
+    category: 'Festival',
+    status: 'Passed',
+    createdAt: '2025-01-01T00:00:00.000Z'
+  },
+  {
+    id: 'holiday-ind-2025-08-27',
+    type: 'holiday',
+    name: 'Ganesh Chaturthi',
+    description: 'Festival celebrating the birth of Lord Ganesha, the elephant-headed god of wisdom.',
+    startDate: '2025-08-27T00:00',
+    endDate: '2025-08-27T23:59',
+    category: 'Festival',
+    status: 'Passed',
+    createdAt: '2025-01-01T00:00:00.000Z'
+  },
+  {
+    id: 'holiday-ind-2025-10-02',
+    type: 'holiday',
+    name: 'Gandhi Jayanti',
+    description: 'National holiday marking the birth anniversary of Mahatma Gandhi.',
+    startDate: '2025-10-02T00:00',
+    endDate: '2025-10-02T23:59',
+    category: 'Public Holiday',
+    status: 'Passed',
+    createdAt: '2025-01-01T00:00:00.000Z'
+  },
+  {
+    id: 'holiday-ind-2025-10-02',
+    type: 'holiday',
+    name: 'Dussehra (Vijayadashami)',
+    description: 'Celebration of the victory of Lord Rama over Ravana. Marks the end of Navratri.',
+    startDate: '2025-10-02T00:00',
+    endDate: '2025-10-02T23:59',
+    category: 'Festival',
+    status: 'Passed',
+    createdAt: '2025-01-01T00:00:00.000Z'
+  },
+  {
+    id: 'holiday-ind-2025-10-20',
+    type: 'holiday',
+    name: 'Diwali (Deepavali)',
+    description: 'Festival of lights celebrating the victory of light over darkness and good over evil.',
+    startDate: '2025-10-20T00:00',
+    endDate: '2025-10-20T23:59',
+    category: 'Festival',
+    status: 'Passed',
+    createdAt: '2025-01-01T00:00:00.000Z'
+  },
+  {
+    id: 'holiday-ind-2025-11-05',
+    type: 'holiday',
+    name: 'Guru Nanak Jayanti',
+    description: 'Birth anniversary of Guru Nanak Dev Ji, the founder of Sikhism.',
+    startDate: '2025-11-05T00:00',
+    endDate: '2025-11-05T23:59',
+    category: 'Public Holiday',
+    status: 'Passed',
+    createdAt: '2025-01-01T00:00:00.000Z'
+  },
+  {
+    id: 'holiday-ind-2025-12-25',
+    type: 'holiday',
+    name: 'Christmas',
+    description: 'Christian festival celebrating the birth of Jesus Christ.',
+    startDate: '2025-12-25T00:00',
+    endDate: '2025-12-25T23:59',
+    category: 'Public Holiday',
+    status: 'Passed',
+    createdAt: '2025-01-01T00:00:00.000Z'
+  },
+
+  // 2026 Holidays
+  {
+    id: 'holiday-ind-2026-01-14',
+    type: 'holiday',
+    name: 'Makar Sankranti / Pongal',
+    description: 'Harvest festival celebrated across India. Marks the suns transition into Capricorn.',
+    startDate: '2026-01-14T00:00',
+    endDate: '2026-01-14T23:59',
+    category: 'Festival',
+    status: 'Upcoming',
+    createdAt: '2025-01-01T00:00:00.000Z'
+  },
+  {
+    id: 'holiday-ind-2026-01-26',
+    type: 'holiday',
+    name: 'Republic Day',
+    description: 'National holiday celebrating the adoption of the Constitution of India.',
+    startDate: '2026-01-26T00:00',
+    endDate: '2026-01-26T23:59',
+    category: 'Public Holiday',
+    status: 'Upcoming',
+    createdAt: '2025-01-01T00:00:00.000Z'
+  },
+  {
+    id: 'holiday-ind-2026-03-04',
+    type: 'holiday',
+    name: 'Holi',
+    description: 'Festival of colors celebrating the arrival of spring and the triumph of good over evil.',
+    startDate: '2026-03-04T00:00',
+    endDate: '2026-03-04T23:59',
+    category: 'Festival',
+    status: 'Upcoming',
+    createdAt: '2025-01-01T00:00:00.000Z'
+  },
+  {
+    id: 'holiday-ind-2026-03-20',
+    type: 'holiday',
+    name: 'Eid-ul-Fitr',
+    description: 'Islamic festival marking the end of Ramadan fasting month.',
+    startDate: '2026-03-20T00:00',
+    endDate: '2026-03-20T23:59',
+    category: 'Public Holiday',
+    status: 'Upcoming',
+    createdAt: '2025-01-01T00:00:00.000Z'
+  },
+  {
+    id: 'holiday-ind-2026-03-26',
+    type: 'holiday',
+    name: 'Ram Navami',
+    description: 'Celebration of the birth of Lord Rama, an avatar of Vishnu.',
+    startDate: '2026-03-26T00:00',
+    endDate: '2026-03-26T23:59',
+    category: 'Festival',
+    status: 'Upcoming',
+    createdAt: '2025-01-01T00:00:00.000Z'
+  },
+  {
+    id: 'holiday-ind-2026-03-29',
+    type: 'holiday',
+    name: 'Mahavir Jayanti',
+    description: 'Birth anniversary of Lord Mahavira, the 24th Tirthankara of Jainism.',
+    startDate: '2026-03-29T00:00',
+    endDate: '2026-03-29T23:59',
+    category: 'Public Holiday',
+    status: 'Upcoming',
+    createdAt: '2025-01-01T00:00:00.000Z'
+  },
+  {
+    id: 'holiday-ind-2026-04-03',
+    type: 'holiday',
+    name: 'Good Friday',
+    description: 'Christian observance commemorating the crucifixion of Jesus Christ.',
+    startDate: '2026-04-03T00:00',
+    endDate: '2026-04-03T23:59',
+    category: 'Public Holiday',
+    status: 'Upcoming',
+    createdAt: '2025-01-01T00:00:00.000Z'
+  },
+  {
+    id: 'holiday-ind-2026-04-14',
+    type: 'holiday',
+    name: 'Ambedkar Jayanti',
+    description: 'Birth anniversary of Dr. B.R. Ambedkar, the architect of the Indian Constitution.',
+    startDate: '2026-04-14T00:00',
+    endDate: '2026-04-14T23:59',
+    category: 'National Holiday',
+    status: 'Upcoming',
+    createdAt: '2025-01-01T00:00:00.000Z'
+  },
+  {
+    id: 'holiday-ind-2026-05-27',
+    type: 'holiday',
+    name: 'Eid-ul-Adha (Bakrid)',
+    description: 'Islamic festival of sacrifice commemorating Prophet Abrahams willingness to sacrifice his son.',
+    startDate: '2026-05-27T00:00',
+    endDate: '2026-05-27T23:59',
+    category: 'Public Holiday',
+    status: 'Upcoming',
+    createdAt: '2025-01-01T00:00:00.000Z'
+  },
+  {
+    id: 'holiday-ind-2026-06-16',
+    type: 'holiday',
+    name: 'Muharram',
+    description: 'Islamic New Year marking the hijra of Prophet Muhammad. Day of mourning for Shia Muslims.',
+    startDate: '2026-06-16T00:00',
+    endDate: '2026-06-16T23:59',
+    category: 'Public Holiday',
+    status: 'Upcoming',
+    createdAt: '2025-01-01T00:00:00.000Z'
+  },
+  {
+    id: 'holiday-ind-2026-08-05',
+    type: 'holiday',
+    name: 'Janmashtami',
+    description: 'Celebration of the birth of Lord Krishna, the eighth avatar of Vishnu.',
+    startDate: '2026-08-05T00:00',
+    endDate: '2026-08-05T23:59',
+    category: 'Festival',
+    status: 'Upcoming',
+    createdAt: '2025-01-01T00:00:00.000Z'
+  },
+  {
+    id: 'holiday-ind-2026-08-15',
+    type: 'holiday',
+    name: 'Independence Day',
+    description: 'National holiday celebrating Indias independence from British rule in 1947.',
+    startDate: '2026-08-15T00:00',
+    endDate: '2026-08-15T23:59',
+    category: 'Public Holiday',
+    status: 'Upcoming',
+    createdAt: '2025-01-01T00:00:00.000Z'
+  },
+  {
+    id: 'holiday-ind-2026-08-16',
+    type: 'holiday',
+    name: 'Ganesh Chaturthi',
+    description: 'Festival celebrating the birth of Lord Ganesha, the elephant-headed god of wisdom.',
+    startDate: '2026-08-16T00:00',
+    endDate: '2026-08-16T23:59',
+    category: 'Festival',
+    status: 'Upcoming',
+    createdAt: '2025-01-01T00:00:00.000Z'
+  },
+  {
+    id: 'holiday-ind-2026-09-21',
+    type: 'holiday',
+    name: 'Dussehra (Vijayadashami)',
+    description: 'Celebration of the victory of Lord Rama over Ravana. Marks the end of Navratri.',
+    startDate: '2026-09-21T00:00',
+    endDate: '2026-09-21T23:59',
+    category: 'Festival',
+    status: 'Upcoming',
+    createdAt: '2025-01-01T00:00:00.000Z'
+  },
+  {
+    id: 'holiday-ind-2026-10-02',
+    type: 'holiday',
+    name: 'Gandhi Jayanti',
+    description: 'National holiday marking the birth anniversary of Mahatma Gandhi.',
+    startDate: '2026-10-02T00:00',
+    endDate: '2026-10-02T23:59',
+    category: 'Public Holiday',
+    status: 'Upcoming',
+    createdAt: '2025-01-01T00:00:00.000Z'
+  },
+  {
+    id: 'holiday-ind-2026-11-08',
+    type: 'holiday',
+    name: 'Diwali (Deepavali)',
+    description: 'Festival of lights celebrating the victory of light over darkness and good over evil.',
+    startDate: '2026-11-08T00:00',
+    endDate: '2026-11-08T23:59',
+    category: 'Festival',
+    status: 'Upcoming',
+    createdAt: '2025-01-01T00:00:00.000Z'
+  },
+  {
+    id: 'holiday-ind-2026-11-25',
+    type: 'holiday',
+    name: 'Guru Nanak Jayanti',
+    description: 'Birth anniversary of Guru Nanak Dev Ji, the founder of Sikhism.',
+    startDate: '2026-11-25T00:00',
+    endDate: '2026-11-25T23:59',
+    category: 'Public Holiday',
+    status: 'Upcoming',
+    createdAt: '2025-01-01T00:00:00.000Z'
+  },
+  {
+    id: 'holiday-ind-2026-12-25',
+    type: 'holiday',
+    name: 'Christmas',
+    description: 'Christian festival celebrating the birth of Jesus Christ.',
+    startDate: '2026-12-25T00:00',
+    endDate: '2026-12-25T23:59',
+    category: 'Public Holiday',
+    status: 'Upcoming',
+    createdAt: '2025-01-01T00:00:00.000Z'
+  },
+
+  // 2027 Holidays
+  {
+    id: 'holiday-ind-2027-01-14',
+    type: 'holiday',
+    name: 'Makar Sankranti / Pongal',
+    description: 'Harvest festival celebrated across India. Marks the suns transition into Capricorn.',
+    startDate: '2027-01-14T00:00',
+    endDate: '2027-01-14T23:59',
+    category: 'Festival',
+    status: 'Upcoming',
+    createdAt: '2025-01-01T00:00:00.000Z'
+  },
+  {
+    id: 'holiday-ind-2027-01-26',
+    type: 'holiday',
+    name: 'Republic Day',
+    description: 'National holiday celebrating the adoption of the Constitution of India.',
+    startDate: '2027-01-26T00:00',
+    endDate: '2027-01-26T23:59',
+    category: 'Public Holiday',
+    status: 'Upcoming',
+    createdAt: '2025-01-01T00:00:00.000Z'
+  },
+  {
+    id: 'holiday-ind-2027-03-22',
+    type: 'holiday',
+    name: 'Holi',
+    description: 'Festival of colors celebrating the arrival of spring and the triumph of good over evil.',
+    startDate: '2027-03-22T00:00',
+    endDate: '2027-03-22T23:59',
+    category: 'Festival',
+    status: 'Upcoming',
+    createdAt: '2025-01-01T00:00:00.000Z'
+  },
+  {
+    id: 'holiday-ind-2027-04-09',
+    type: 'holiday',
+    name: 'Good Friday',
+    description: 'Christian observance commemorating the crucifixion of Jesus Christ.',
+    startDate: '2027-04-09T00:00',
+    endDate: '2027-04-09T23:59',
+    category: 'Public Holiday',
+    status: 'Upcoming',
+    createdAt: '2025-01-01T00:00:00.000Z'
+  },
+  {
+    id: 'holiday-ind-2027-04-14',
+    type: 'holiday',
+    name: 'Ambedkar Jayanti',
+    description: 'Birth anniversary of Dr. B.R. Ambedkar, the architect of the Indian Constitution.',
+    startDate: '2027-04-14T00:00',
+    endDate: '2027-04-14T23:59',
+    category: 'National Holiday',
+    status: 'Upcoming',
+    createdAt: '2025-01-01T00:00:00.000Z'
+  },
+  {
+    id: 'holiday-ind-2027-05-17',
+    type: 'holiday',
+    name: 'Eid-ul-Adha (Bakrid)',
+    description: 'Islamic festival of sacrifice commemorating Prophet Abrahams willingness to sacrifice his son.',
+    startDate: '2027-05-17T00:00',
+    endDate: '2027-05-17T23:59',
+    category: 'Public Holiday',
+    status: 'Upcoming',
+    createdAt: '2025-01-01T00:00:00.000Z'
+  },
+  {
+    id: 'holiday-ind-2027-06-06',
+    type: 'holiday',
+    name: 'Muharram',
+    description: 'Islamic New Year marking the hijra of Prophet Muhammad. Day of mourning for Shia Muslims.',
+    startDate: '2027-06-06T00:00',
+    endDate: '2027-06-06T23:59',
+    category: 'Public Holiday',
+    status: 'Upcoming',
+    createdAt: '2025-01-01T00:00:00.000Z'
+  },
+  {
+    id: 'holiday-ind-2027-08-15',
+    type: 'holiday',
+    name: 'Independence Day',
+    description: 'National holiday celebrating Indias independence from British rule in 1947.',
+    startDate: '2027-08-15T00:00',
+    endDate: '2027-08-15T23:59',
+    category: 'Public Holiday',
+    status: 'Upcoming',
+    createdAt: '2025-01-01T00:00:00.000Z'
+  },
+  {
+    id: 'holiday-ind-2027-09-25',
+    type: 'holiday',
+    name: 'Dussehra (Vijayadashami)',
+    description: 'Celebration of the victory of Lord Rama over Ravana. Marks the end of Navratri.',
+    startDate: '2027-09-25T00:00',
+    endDate: '2027-09-25T23:59',
+    category: 'Festival',
+    status: 'Upcoming',
+    createdAt: '2025-01-01T00:00:00.000Z'
+  },
+  {
+    id: 'holiday-ind-2027-10-02',
+    type: 'holiday',
+    name: 'Gandhi Jayanti',
+    description: 'National holiday marking the birth anniversary of Mahatma Gandhi.',
+    startDate: '2027-10-02T00:00',
+    endDate: '2027-10-02T23:59',
+    category: 'Public Holiday',
+    status: 'Upcoming',
+    createdAt: '2025-01-01T00:00:00.000Z'
+  },
+  {
+    id: 'holiday-ind-2027-10-28',
+    type: 'holiday',
+    name: 'Diwali (Deepavali)',
+    description: 'Festival of lights celebrating the victory of light over darkness and good over evil.',
+    startDate: '2027-10-28T00:00',
+    endDate: '2027-10-28T23:59',
+    category: 'Festival',
+    status: 'Upcoming',
+    createdAt: '2025-01-01T00:00:00.000Z'
+  },
+  {
+    id: 'holiday-ind-2027-12-25',
+    type: 'holiday',
+    name: 'Christmas',
+    description: 'Christian festival celebrating the birth of Jesus Christ.',
+    startDate: '2027-12-25T00:00',
+    endDate: '2027-12-25T23:59',
+    category: 'Public Holiday',
+    status: 'Upcoming',
+    createdAt: '2025-01-01T00:00:00.000Z'
+  }
+];
+
+export default INDIAN_HOLIDAYS;
