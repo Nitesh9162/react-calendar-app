@@ -6,7 +6,9 @@ import {
   Plus, 
   Search, 
   Filter, 
-  RotateCcw 
+  RotateCcw,
+  LogOut,
+  User
 } from 'lucide-react';
 import { format } from 'date-fns';
 
@@ -22,7 +24,9 @@ export default function Header({
   setFilterType,
   filterPriority,
   setFilterPriority,
-  onResetFilters
+  onResetFilters,
+  user,
+  onLogout
 }) {
   const navigateDate = (direction) => {
     const newDate = new Date(activeDate);
@@ -177,6 +181,23 @@ export default function Header({
             <Plus className="w-4 h-4" />
             <span className="hidden sm:inline">New Event</span>
           </button>
+
+          {/* User Info & Logout */}
+          {user && (
+            <div className="flex items-center gap-2 ml-2 pl-2 border-l border-slate-700">
+              <div className="flex items-center gap-1.5 text-slate-300 text-xs">
+                <User className="w-3.5 h-3.5" />
+                <span className="hidden sm:inline">{user.username}</span>
+              </div>
+              <button
+                onClick={onLogout}
+                className="p-1.5 text-slate-400 hover:text-red-400 hover:bg-slate-800 rounded-lg transition-all"
+                title="Logout"
+              >
+                <LogOut className="w-4 h-4" />
+              </button>
+            </div>
+          )}
         </div>
       </div>
     </header>

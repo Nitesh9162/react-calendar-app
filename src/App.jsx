@@ -5,62 +5,55 @@ import MonthView from './components/MonthView';
 import WeekView from './components/WeekView';
 import DayView from './components/DayView';
 import EventModal from './components/EventModal';
+import Login from './components/Login';
+import Register from './components/Register';
+import { AuthProvider, useAuth } from './context/AuthContext';
 import { getInitialEvents, saveEventsToStorage } from './utils/storage';
 import { format } from 'date-fns';
 
-export default function App() {
+function CalendarApp() {
+  const { user, logout, loading } = useAuth();
+  const [authView, setAuthView] = useState('login');
   const [events, setEvents] = useState([]);
   const [activeDate, setActiveDate] = useState(new Date());
-  const [viewMode, setViewMode] = useState('month'); // year, month, week, day
+  const [viewMode, setViewMode] = useState('month');
 
-  // Search & Filter State
   const [searchQuery, setSearchQuery] = useState('');
-  const [filterType, setFilterType] = useState('all'); // all, task, reminder
-  const [filterPriority, setFilterPriority] = useState('all'); // all, High, Medium, Low
+  const [filterType, setFilterType] = useState('all');
+  const [filterPriority, setFilterPriority] = useState('all');
 
-  // Modal State
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalDate, setModalDate] = useState(null);
   const [editingEvent, setEditingEvent] = useState(null);
 
-  // Initialize events from local storage
   useEffect(() => {
     const loadedEvents = getInitialEvents();
     setEvents(loadedEvents);
   }, []);
 
-  // Save events whenever updated
   const updateEvents = (newEvents) => {
     setEvents(newEvents);
     saveEventsToStorage(newEvents);
   };
 
-  // Filtered events selector
   const filteredEvents = useMemo(() => {
     return events.filter(e => {
-      // Search Query filter
       if (searchQuery.trim()) {
         const query = searchQuery.toLowerCase();
         const matchName = e.name && e.name.toLowerCase().includes(query);
         const matchDesc = e.description && e.description.toLowerCase().includes(query);
         if (!matchName && !matchDesc) return false;
       }
-
-      // Filter by Type
       if (filterType !== 'all') {
         if (e.type !== filterType) return false;
       }
-
-      // Filter by Priority (only applicable to tasks)
       if (filterPriority !== 'all') {
         if (e.type === 'task' && e.priority !== filterPriority) return false;
       }
-
       return true;
     });
   }, [events, searchQuery, filterType, filterPriority]);
 
-  // Modal handlers
   const handleOpenModal = (date = null, eventToEdit = null) => {
     setModalDate(date || activeDate);
     setEditingEvent(eventToEdit);
@@ -73,7 +66,6 @@ export default function App() {
     setModalDate(null);
   };
 
-  // Save Event (Create or Update)
   const handleSaveEvent = (eventData) => {
     const existingIndex = events.findIndex(e => e.id === eventData.id);
     let updated;
@@ -86,13 +78,11 @@ export default function App() {
     updateEvents(updated);
   };
 
-  // Delete Event
   const handleDeleteEvent = (eventId) => {
     const updated = events.filter(e => e.id !== eventId);
     updateEvents(updated);
   };
 
-  // Toggle Status (e.g. Completed vs Pending / To Do / Observed)
   const handleToggleStatus = (event) => {
     const updated = events.map(e => {
       if (e.id === event.id) {
@@ -111,7 +101,6 @@ export default function App() {
     updateEvents(updated);
   };
 
-  // Click on date (e.g., from Year or Month view)
   const handleSelectDate = (date) => {
     setActiveDate(date);
     setViewMode('day');
@@ -123,10 +112,23 @@ export default function App() {
     setFilterPriority('all');
   };
 
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-slate-950 flex items-center justify-center">
+        <div className="text-slate-400">Loading...</div>
+      </div>
+    );
+  }
+
+  if (!user) {
+    if (authView === 'register') {
+      return <Register onSwitchToLogin={() => setAuthView('login')} />;
+    }
+    return <Login onSwitchToRegister={() => setAuthView('register')} />;
+  }
+
   return (
     <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col font-sans selection:bg-indigo-500 selection:text-white">
-      
-      {/* Top Header Controls */}
       <Header
         activeDate={activeDate}
         setActiveDate={setActiveDate}
@@ -140,9 +142,10 @@ export default function App() {
         filterPriority={filterPriority}
         setFilterPriority={setFilterPriority}
         onResetFilters={handleResetFilters}
+        user={user}
+        onLogout={logout}
       />
 
-      {/* Main View Renderer */}
       <main className="flex-1 flex flex-col">
         {viewMode === 'year' && (
           <YearView
@@ -154,7 +157,6 @@ export default function App() {
             searchQuery={searchQuery}
           />
         )}
-
         {viewMode === 'month' && (
           <MonthView
             activeDate={activeDate}
@@ -164,7 +166,6 @@ export default function App() {
             onOpenModalWithDate={(date) => handleOpenModal(date, null)}
           />
         )}
-
         {viewMode === 'week' && (
           <WeekView
             activeDate={activeDate}
@@ -173,7 +174,6 @@ export default function App() {
             onOpenModalWithDate={(date) => handleOpenModal(date, null)}
           />
         )}
-
         {viewMode === 'day' && (
           <DayView
             activeDate={activeDate}
@@ -186,7 +186,6 @@ export default function App() {
         )}
       </main>
 
-      {/* Task & Reminder Modal Form */}
       <EventModal
         isOpen={isModalOpen}
         onClose={handleCloseModal}
@@ -196,10 +195,9 @@ export default function App() {
         editingEvent={editingEvent}
       />
 
-      {/* Footer / Status Bar */}
       <footer className="border-t border-slate-900 bg-slate-950 py-3 px-6 text-center text-xs text-slate-500 flex flex-col sm:flex-row items-center justify-between gap-2">
         <p>
-          React Calendar App &bull; LocalStorage Synced
+          React Calendar App &bull; Logged in as {user.username}
         </p>
         <div className="flex items-center gap-4">
           <span className="flex items-center gap-1.5">
@@ -213,7 +211,14 @@ export default function App() {
           </span>
         </div>
       </footer>
-
     </div>
+  );
+}
+
+export default function App() {
+  return (
+    <AuthProvider>
+      <CalendarApp />
+    </AuthProvider>
   );
 }
